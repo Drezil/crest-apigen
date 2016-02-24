@@ -1,0 +1,56 @@
+name:                crest-apigen
+version:             0.1.0.0
+synopsis:            Generator for a Haskell-API for CREST from EveOnline
+description:         Please see README.md
+homepage:            http://github.com/Drezil/crest-apigen#readme
+license:             MIT
+license-file:        LICENSE
+author:              Stefan Dresselhaus
+maintainer:          sdressel@techfak.uni-bielefeld.de
+copyright:           2016 Stefan Dresselhaus
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Representations
+                     , FormatSchema
+  build-depends:       base >= 4.7 && < 5
+                     , http-conduit
+                     , lens
+                     , aeson
+                     , vector
+                     , unordered-containers
+  default-language:    Haskell2010
+  default-extensions:  TemplateHaskell
+                     , DeriveGeneric
+                     , OverloadedStrings
+                     , DoAndIfThenElse
+
+executable crest-apigen-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , crest-apigen
+                     , aeson
+                     , lens
+                     , http-conduit
+                     , http-client
+                     , bytestring
+  default-language:    Haskell2010
+
+test-suite crest-apigen-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , crest-apigen
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/Drezil/crest-apigen
