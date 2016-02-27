@@ -17,6 +17,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Representations
                      , FormatSchema
+                     , JSONTypes
   build-depends:       base >= 4.7 && < 5
                      , http-conduit
                      , lens
@@ -40,7 +41,16 @@ executable crest-apigen-exe
                      , http-conduit
                      , http-client
                      , bytestring
+                     , filepath
+                     , directory
+                     , unordered-containers
+                     , vector
+                     , text
   default-language:    Haskell2010
+  default-extensions:  TemplateHaskell
+                     , DeriveGeneric
+                     , OverloadedStrings
+                     , DoAndIfThenElse
 
 test-suite crest-apigen-test
   type:                exitcode-stdio-1.0
