@@ -20,7 +20,7 @@ import Data.Char (toUpper, toLower)
 import Data.List (intersperse, isPrefixOf)
 import qualified Data.Text as T (pack,unpack)
 
-crestEndpoint = "https://crest.eveonline.com"
+crestEndpoint = "https://public-crest.eveonline.com"
 
 outputDir = "./generated/"
 

@@ -17,28 +17,28 @@ instance FromJSON Representations where
 
 data Representation = Representation
                     { _acceptType :: RepAcceptType
-                    , _verb :: String
-                    , _version :: Int
+                    , _verb       :: String
+                    , _version    :: Int
                     , _versionStr :: String
                     } deriving (Show, Eq)
 
 instance FromJSON Representation where
-        parseJSON (Object v) = Representation <$>
-                               v .: "acceptType" <*>
-                               v .: "verb" <*>
-                               v .: "version" <*>
-                               v .: "version_str"
+        parseJSON (Object v) = Representation
+                               <$> v .: "acceptType"
+                               <*> v .: "verb"
+                               <*> v .: "version"
+                               <*> v .: "version_str"
         parseJSON a          = fail $ "Representation: " ++ show a
 
 data RepAcceptType = RepAcceptType
-                   { _name :: String
+                   { _name                :: String
                    , _jsonDumpOfStructure :: String
                    } deriving (Show, Eq)
 
 instance FromJSON RepAcceptType where
-        parseJSON (Object v) = RepAcceptType <$>
-                               v .: "name" <*>
-                               v .: "jsonDumpOfStructure"
+        parseJSON (Object v) = RepAcceptType
+                               <$> v .: "name"
+                               <*> v .: "jsonDumpOfStructure"
         parseJSON a          = fail $ "RepAcceptType: " ++ show a
 
 makeLenses(''Representation)
@@ -54,4 +54,5 @@ getRepresentations man url' = do
         url <- parseUrl url'
         let req = url { method = "OPTIONS" }
         response <- httpLbs req man
+        print $ responseBody response
         return . first (toException . ParseException) . eitherDecode . responseBody $ response
